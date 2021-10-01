@@ -3,6 +3,7 @@ import { Text, View, FlatList } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import styles from "./Home.style";
 import pokemonService from "../../services/api/pokemon.service";
+import pokemonStorage from "../../services/asyncStorage/pokemon.storage";
 
 export default function Home(props) {
   const [loading, setLoading] = useState(false);
@@ -15,8 +16,15 @@ export default function Home(props) {
     if (!loading)
       try {
         setLoading(true);
-        const response = await pokemonService.getPokemonList();
-        const list = response?.data?.results || [];
+        let list = [];
+        const storageRes = await pokemonStorage.getPokemonList();
+        if (storageRes == null) {
+          const apiRes = await pokemonService.getPokemonList();
+          await pokemonStorage.setPokemonList(apiRes);
+          list = apiRes?.data?.results || [];
+        } else {
+          list = storageRes?.data?.results || [];
+        }
         setList(list);
         setLoading(false);
       } catch (error) {
