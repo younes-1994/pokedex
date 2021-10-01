@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useState, useRef } from "react";
 import { Text, View } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import styles from "./Login.style";
@@ -6,11 +6,11 @@ import Input from "../../components/input/Input.component";
 import Button from "../../components/button/Button.component";
 import accountService from "../../services/api/account.service";
 
-export default (props) => {
+export default function Login(props) {
   const passwordRef = useRef();
 
-  const [username, onChangeUsername] = React.useState("");
-  const [password, onChangePassword] = React.useState("");
+  const [username, onChangeUsername] = useState("");
+  const [password, onChangePassword] = useState("");
 
   const OnFormSubmit = async () => {
     try {
@@ -48,4 +48,4 @@ export default (props) => {
       <Button onPress={OnFormSubmit}>ورود</Button>
     </View>
   );
-};
+}
