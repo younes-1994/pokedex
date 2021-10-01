@@ -1,17 +1,22 @@
 import React, { useEffect, useState } from "react";
-import { Text, View, FlatList } from "react-native";
+import { View } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import styles from "./Home.style";
+import Loading from "../../components/loading/Loading.component";
+import Search from "./Search.component";
+import List from "./List.component";
 import pokemonService from "../../services/api/pokemon.service";
 import pokemonStorage from "../../services/asyncStorage/pokemon.storage";
 
 export default function Home(props) {
   const [loading, setLoading] = useState(false);
   const [list, setList] = useState([]);
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     getPokemonList();
   }, []);
+
   const getPokemonList = async () => {
     if (!loading)
       try {
@@ -32,23 +37,16 @@ export default function Home(props) {
       }
   };
 
-  const Loading = () => loading && <Text>loading</Text>;
-  const List = () =>
-    !loading && (
-      <FlatList
-        style={styles.list}
-        data={list}
-        renderItem={({ item }) => <Text style={styles.item}>{item.name}</Text>}
-        keyExtractor={(item) => item.name}
-      />
-    );
+  const onSearch = (value) => {
+    setSearch(value);
+  };
 
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
-      <Loading />
-      {/* <Input /> */}
-      <List />
+      <Loading status={loading} />
+      <Search onSearch={onSearch} />
+      <List status={!loading} data={list} searchKey={search} />
     </View>
   );
 }
