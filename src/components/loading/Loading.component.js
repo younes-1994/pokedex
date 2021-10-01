@@ -1,5 +1,6 @@
 import React from "react";
-import { Text } from "react-native";
+import { ActivityIndicator } from "react-native";
+import { primary } from "../../constants/theme.constant";
 
-const Loading = ({ status }) => status && <Text>loading</Text>;
+const Loading = ({ status = true }) => status && <ActivityIndicator size="large" color={primary} />;
 export default Loading;

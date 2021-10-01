@@ -1,9 +1,12 @@
 import { StyleSheet } from "react-native";
+import { primary } from "../../constants/theme.constant";
 
 const styles = StyleSheet.create({
   button: {
+    minWidth: 200,
     alignItems: "center",
-    backgroundColor: "#2196F3",
+    backgroundColor: primary,
+    borderRadius: 50,
   },
   button__text: {
     textAlign: "center",

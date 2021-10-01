@@ -6,5 +6,16 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  icon: {
+    flex: 3,
+  },
+  card: {
+    flex: 4,
+    alignItems: "center",
+  },
+  card__text: {
+    fontWeight: "bold",
+    fontSize: 18,
+  },
 });
 export default styles;

@@ -7,4 +7,6 @@ export function login(data) {
   if (username == USERNAME && password == PASSWORD) return Promise.resolve();
   else return Promise.reject();
 }
-export function logout() {}
+export function logout() {
+  return Promise.resolve();
+}

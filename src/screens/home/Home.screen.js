@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { View } from "react-native";
 import { StatusBar } from "expo-status-bar";
-import styles from "./Home.style";
-import Loading from "../../components/loading/Loading.component";
-import Search from "./Search.component";
-import List from "./List.component";
+
 import pokemonService from "../../services/api/pokemon.service";
 import pokemonStorage from "../../services/asyncStorage/pokemon.storage";
+
+import Loading from "../../components/loading/Loading.component";
+import List from "../../components/list/List.component";
+import Empty from "../../components/empty/empty.component";
+import Search from "./Search.component";
+import styles from "./Home.style";
 
 export default function Home(props) {
   const [loading, setLoading] = useState(false);
@@ -49,8 +52,9 @@ export default function Home(props) {
     <View style={styles.container}>
       <StatusBar style="auto" />
       <Loading status={loading} />
-      <Search onSearch={onSearch} />
-      <List status={!loading} data={list} searchKey={search} onItemPress={onItemPress} />
+      {list.length == 0 && !loading && <Empty />}
+      {list.length > 0 && !loading && <Search status={!loading} onSearch={onSearch} />}
+      {list.length > 0 && !loading && <List data={list} searchKey={search} onItemPress={onItemPress} />}
     </View>
   );
 }

@@ -1,13 +1,13 @@
 import React from "react";
 import Input from "../../components/input/Input.component";
 
-const Search = ({ onSearch }) => {
+const Search = ({ status, onSearch }) => {
   const onChangeText = (value) => {
     //TODO:IMPLEMENT DEBOUNCE LATER
-    onSearch(value);
+    onSearch(value?.toLowerCase?.());
   };
 
-  return <Input onChangeText={onChangeText} placeholder="جستجو" />;
+  return status && <Input onChangeText={onChangeText} placeholder="search" />;
 };
 
 export default Search;
