@@ -41,12 +41,16 @@ export default function Home(props) {
     setSearch(value);
   };
 
+  const onItemPress = (name) => {
+    props.navigation.navigate("Details", { name });
+  };
+
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
       <Loading status={loading} />
       <Search onSearch={onSearch} />
-      <List status={!loading} data={list} searchKey={search} />
+      <List status={!loading} data={list} searchKey={search} onItemPress={onItemPress} />
     </View>
   );
 }
